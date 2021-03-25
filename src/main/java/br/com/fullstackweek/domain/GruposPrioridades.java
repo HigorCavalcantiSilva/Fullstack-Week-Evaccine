@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class GruposPrioritaridades {
+public class GruposPrioridades {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,7 @@ public class GruposPrioritaridades {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GruposPrioritaridades other = (GruposPrioritaridades) obj;
+		GruposPrioridades other = (GruposPrioridades) obj;
 		if (codigo != other.codigo)
 			return false;
 		if (descricao == null) {

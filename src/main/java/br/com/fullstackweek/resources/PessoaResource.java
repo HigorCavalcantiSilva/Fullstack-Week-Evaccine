@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import br.com.fullstackweek.repository.PessoaRepository;
 
 @RestController
 @RequestMapping("/pessoas")
+@CrossOrigin(origins = {"http://localhost:3000"})
 public class PessoaResource {
 
 	@Autowired
@@ -29,7 +31,9 @@ public class PessoaResource {
 	
 	@PostMapping
 	public Pessoa cadastrarPessoa(@RequestBody Pessoa pessoa) {
-		return pessoaRepository.save(pessoa);
+		Pessoa pessoaCadastrada = pessoaRepository.save(pessoa);
+		pessoaCadastrada.setIsVacinada(false);
+		return pessoaRepository.save(pessoaCadastrada);
 	}
 	
 	@PutMapping("{codigo}")
@@ -43,6 +47,7 @@ public class PessoaResource {
 					record.setIdade(pessoa.getIdade());
 					record.setNome(pessoa.getNome());
 					record.setTelefone(pessoa.getTelefone());
+					record.setIsVacinada(pessoa.getIsVacinada());
 					return pessoaRepository.save(record);
 				}).orElse(null);
 	}
